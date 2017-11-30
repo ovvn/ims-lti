@@ -75,7 +75,7 @@ class Provider
     return callback new errors.SignatureError('Invalid Signature'), false if not valid_signature
     @nonceStore.isNew body.oauth_nonce, body.oauth_timestamp, (err, valid) ->
       if not valid
-        callback new errors.NonceError('Expired nonce'), false
+        callback new Error('Expired nonce'), false
       else
         callback null, true
 
