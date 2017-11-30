@@ -24,7 +24,7 @@ class MemoryNonceStore extends NonceStore
       console.log {nonce, timestamp}
       if typeof timestamp isnt 'undefined' and timestamp isnt null
         timestamp = parseInt timestamp, 10
-        currentTime = Math.round(Date.now() / 1000)
+        currentTime = Math.round(+new Date() / 1000)
 
         timestampIsFresh = (currentTime - timestamp) <= EXPIRE_IN_SEC
         console.log {currentTime, timestamp, EXPIRE_IN_SEC, timestampIsFresh}
@@ -36,12 +36,12 @@ class MemoryNonceStore extends NonceStore
       else
         next new Error('Timestamp required'), false
 
-  setUsed: (nonce, timestamp, next=()->)->
-    @used[nonce] = timestamp + EXPIRE_IN_SEC
+  setUsed: (nonce, ts, next=()->)->
+    @used[nonce] = ts + EXPIRE_IN_SEC
     next(null)
 
   _clearNonces: () ->
-    now = Math.round(Date.now() / 1000)
+    now = Math.round(+new Date() / 1000)
 
     for nonce, expiry of @used
       console.log {expiry, now}
