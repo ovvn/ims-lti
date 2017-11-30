@@ -30,9 +30,6 @@
     "url": "http://github.com/omsmith/ims-lti/issues"
   },
   "main": "./lib/ims-lti",
-  "scripts": {
-    "prepublish": "make build"
-  },
   "dependencies": {
     "xml2js": "~0.4.0",
     "xmlbuilder": "~2.4.0",
