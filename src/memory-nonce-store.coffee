@@ -27,7 +27,8 @@ class MemoryNonceStore extends NonceStore
         currentTime = Math.round(Date.now() / 1000)
 
         timestampIsFresh = (currentTime - timestamp) <= EXPIRE_IN_SEC
-        console.log {timestampIsFresh}     
+        console.log {currentTime, timestamp, EXPIRE_IN_SEC, timestampIsFresh}
+        console.log 'diff ', currentTime - timestamp
         if timestampIsFresh
           next null, true
         else
@@ -43,6 +44,7 @@ class MemoryNonceStore extends NonceStore
     now = Math.round(Date.now() / 1000)
 
     for nonce, expiry of @used
+      console.log {expiry, now}
       delete @used[nonce] if expiry <= now
 
     return
