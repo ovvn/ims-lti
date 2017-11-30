@@ -21,12 +21,13 @@ class MemoryNonceStore extends NonceStore
       return next new Error('Nonce already seen'), false
 
     @setUsed nonce, timestamp, (err) ->
+      console.log {nonce, timestamp}
       if typeof timestamp isnt 'undefined' and timestamp isnt null
         timestamp = parseInt timestamp, 10
         currentTime = Math.round(Date.now() / 1000)
 
         timestampIsFresh = (currentTime - timestamp) <= EXPIRE_IN_SEC
-
+        console.log {timestampIsFresh}     
         if timestampIsFresh
           next null, true
         else
