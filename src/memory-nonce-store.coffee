@@ -25,11 +25,11 @@ class MemoryNonceStore extends NonceStore
       if typeof timestamp isnt 'undefined' and timestamp isnt null
         timestamp = parseInt timestamp, 10
         currentTime = Math.round(+new Date() / 1000)
-
-        timestampIsFresh = (currentTime - timestamp) <= EXPIRE_IN_SEC
-        console.log {currentTime, timestamp, EXPIRE_IN_SEC, timestampIsFresh}
+        console.log {currentTime, timestamp, EXPIRE_IN_SEC}
+        timestampIsFresh = ((currentTime - timestamp) <= EXPIRE_IN_SEC)
+        console.log {currentTime, timestampIsFresh}
         console.log 'diff ', currentTime - timestamp
-        if timestampIsFresh
+        if (currentTime - timestamp) <= EXPIRE_IN_SEC
           next null, true
         else
           next new Error('Expired timestamp'), false
