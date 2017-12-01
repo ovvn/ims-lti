@@ -20,7 +20,7 @@ class RedisNonceStore extends NonceStore
 
 
     # Generate unix time in seconds
-    currentTime = Math.round(+new Date() / 1000)
+    currentTime = Math.round(Date.now() / 1000)
     # Make sure this request is fresh (within the grace period)
     freshTimestamp = (currentTime - parseInt(timestamp,10)) <= EXPIRE_IN_SEC
 
