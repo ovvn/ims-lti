@@ -1,7 +1,7 @@
 NonceStore = require './nonce-store'
 
-# Five minutes
-EXPIRE_IN_SEC = 5*60
+# Ten minutes
+EXPIRE_IN_SEC = 10 * 60
 
 class RedisNonceStore extends NonceStore
 
