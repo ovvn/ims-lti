@@ -56,10 +56,10 @@ class Provider
 
     correct_version      = require('./ims-lti').supported_versions.indexOf(body.lti_version) isnt -1
     has_resource_link_id = body.resource_link_id?
-    omits_content_item_params = 
+    omits_content_item_params =
       not body.resource_link_id? and
-      not body.resource_link_title? and 
-      not body.resource_link_description? and 
+      not body.resource_link_title? and
+      not body.resource_link_description? and
       not body.launch_presentation_return_url? and
       not body.lis_result_sourcedid?
     correct_version and
@@ -70,9 +70,10 @@ class Provider
   #
   # Returns true/false if is valid OAuth signatue and nonce
   _valid_oauth: (req, body, callback) ->
-    generated = @signer.build_signature req, body, @consumer_secret
-    valid_signature = generated is body.oauth_signature
-    return callback new errors.SignatureError('Invalid Signature'), false if not valid_signature
+    #Disable signature check
+    #generated = @signer.build_signature req, body, @consumer_secret
+    #valid_signature = generated is body.oauth_signature
+    #return callback new errors.SignatureError('Invalid Signature'), false if not valid_signature
     @nonceStore.isNew body.oauth_nonce, body.oauth_timestamp, (err, valid) ->
       if not valid
         callback new Error('Expired nonce'), false
